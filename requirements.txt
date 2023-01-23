@@ -1,0 +1,5 @@
+python-igraph
+tqdm
+requests
+pandas
+xnetwork
