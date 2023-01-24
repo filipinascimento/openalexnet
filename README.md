@@ -1,6 +1,9 @@
 # OpenAlex Networks (openalexnet)
 OpenAlex Networks is a helper library and standalone command-line application to process and obtain data from the [OpenAlex](https://openalex.org) dataset via API. It also provides functionality to generate citation and coauthorship networks from queries.
 
+<img width="1054" alt="image" src="https://user-images.githubusercontent.com/600989/214225803-86be86b6-e1fe-4c4a-babf-1fce518bcb9a.png">
+
+
 
 ## [Installation](#installation)
 
