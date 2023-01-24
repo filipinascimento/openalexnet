@@ -1,5 +1,5 @@
 # OpenAlex Networks (openalexnet)
-OpenAlex Networks is a helper library and standalone command-line application to process and obtain data from the OpenAlex dataset via API. It also provides functionality to generate citation and coauthorship networks from queries.
+OpenAlex Networks is a helper library and standalone command-line application to process and obtain data from the [OpenAlex](https://openalex.org) dataset via API. It also provides functionality to generate citation and coauthorship networks from queries.
 
 
 ## Installation
@@ -15,7 +15,6 @@ or from source:
 pip git+https://github.com/filipinascimento/openalexnet.git
 ```
 
-
 ## Usage as command-line application
 After installing openalexnet, you can use the command:
 ```bash
@@ -26,6 +25,14 @@ or simply
 openalexnet
 ```
 This should print a help message with the available commands and options.
+
+You can make your first query by using:
+```bash
+openalexnet -t works -f "author.id:A2420755856,is_paratext:false,type:journal-article" -s "complex" -r "cited_by_count:desc" -o works.jsonl -c citation_network.gml -a coauthorship_network.gml
+```
+This will get all the journal articles from H. Eugene Stanley (A2420755856) with the word "complex" and sorted by the number of citations (in descending order).
+
+For more details about the interface, check the following sections.
 
 ### Querying the OpenAlex API
 The queries have four main parameters:
@@ -123,4 +130,9 @@ Check `Examples` folder for more examples.
 ## Coming soon
  - Full API documentation
     - More examples
+ - Unit tests
+ - Group count
+
+## Thanks
+Remember to cite the 
 
