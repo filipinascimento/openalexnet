@@ -16,6 +16,11 @@ setuptools.setup(
     long_description=long_description,
     long_description_content_type="text/markdown",
     url="https://github.com/filipinascimento/openalexnet",
+    entry_points={
+        'console_scripts': [
+            'openalexnet = openalexnet.__main__:main',
+        ],
+    },
     packages=setuptools.find_packages(),
     classifiers=[
         "Programming Language :: Python :: 3",

@@ -145,12 +145,12 @@ class _cursorIterator:
 
 
 def saveJSONLines(entities,file):
-    """Saves a list of entities to a JSON Lines file.
+    """Save entities to a JSON Lines file.
 
     Parameters
     ----------
-    entities : list
-        List of entities to save to the file.
+    entities : iterator
+        Iterator of entities to save to the file.
     file : file, str, or pathlib.Path
         File to save the entities to.
 
@@ -170,7 +170,7 @@ def saveJSONLines(entities,file):
 
 
 def entitiesFromJSONLines(file):
-    """Loads a list of entities from a JSON Lines file.
+    """Load entities from a JSON Lines file.
 
     Parameters
     ----------

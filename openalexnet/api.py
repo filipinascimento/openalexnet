@@ -1,6 +1,6 @@
 import requests
 import math
-from openalexnet.utilities import _cursorIterator, _pageIterator, makeAPICall, processOAInput
+from .utilities import _cursorIterator, _pageIterator, makeAPICall, processOAInput
 
 
 class OpenAlexAPI():
@@ -15,12 +15,14 @@ class OpenAlexAPI():
         ----------
         entityType : str
             Type of entity to be retrieved from the OpenAlex API. Can be one of the following: "works", "institutions", "authors", "concepts", "venues",.
-        filter : dict, optional
+        filter : dict, list, str optional
             Dictionary of filters to be used in the OpenAlex API call. The keys are the names of the filters and the values are the values of the filters. The default is {}.
+            Alternatively, a list of strings parameters formatted as openalex API or a string can be used instead.
         search : str, optional
             Search term to be used in the OpenAlex API call. The default is "".
-        sort : list, optional
+        sort : list, str, optional
             List of sort terms to be used in the OpenAlex API call. Include ":desc" to the name to sort in descending order. The default is [].
+            Alternatively, a string can be used instead.
         maxEntities : int, optional
             Maximum number of entities to be retrieved. If the number of entities in OpenAlex is larger than this number, only the first maxEntities entities will be returned. If maxEntities is set to -1, all entities will be returned. The default is 10000.
         ignoreEntitiesLimitWarning : bool, optional
@@ -44,11 +46,19 @@ class OpenAlexAPI():
         """
         parameters = {}
         if (filter):
-            parameters["filter"] = processOAInput(filter)
+            if(isinstance(filter, list)):
+                parameters["filter"] = ",".join(filter)
+            elif(isinstance(filter, dict)):
+                parameters["filter"] = processOAInput(filter)
+            else:
+                parameters["filter"] = filter
         if (search):
             parameters["search"] = search
         if (sort):
-            parameters["sort"] = ",".join(sort)
+            if(isinstance(sort, list)):
+                parameters["sort"] = ",".join(sort)
+            else:
+                parameters["sort"] = sort
         if (self.email):
             parameters["mailto"] = self.email
 

@@ -1,0 +1,5 @@
+filter,search,sort,maxentities
+"type:journal-article,is_paratext:false","""complex networks""","cited_by_count:desc",1000
+"type:journal-article,is_paratext:false","""network science""","cited_by_count:desc",1000
+"type:journal-article,is_paratext:false","""machine learning""","cited_by_count:desc",1000
+"type:journal-article,is_paratext:false","""deep learning""","cited_by_count:desc",1000

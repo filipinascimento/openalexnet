@@ -17,6 +17,7 @@ if __name__ == "__main__":
 
     entities = openalex.getEntities(entityType, filter=filterData)
 
+    # Retrieving all entities showing progress bar via tqdm
     entitiesList = []
     for entity in tqdm(entities,desc="Retrieving entries"):
         entitiesList.append(entity)

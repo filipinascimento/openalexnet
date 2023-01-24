@@ -18,7 +18,7 @@ if __name__ == "__main__":
     entities1 = tqdm(openalex.getEntities(entityType, filter=filterData1),desc="Retrieving query 1")
 
     filterData2 = {
-        "author.id": "A2420755856", # Albert-Laszlo Barabasi
+        "author.id": "A2195478976", # Albert-Laszlo Barabasi
         "is_paratext": "false",  # Only works, no paratexts (https://en.wikipedia.org/wiki/Paratext)
         "type": "journal-article", # Only journal articles
     }

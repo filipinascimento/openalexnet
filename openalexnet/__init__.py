@@ -1,3 +1,3 @@
-from openalexnet.api import OpenAlexAPI
-from openalexnet.network import createNetworks,saveNetworkEdgesCSV
-from openalexnet.utilities import saveJSONLines, entitiesFromJSONLines, aggregateEntities, filterDuplicates
+from .api import OpenAlexAPI
+from .network import createNetworks,saveNetworkEdgesCSV
+from .utilities import saveJSONLines, entitiesFromJSONLines, aggregateEntities, filterDuplicates

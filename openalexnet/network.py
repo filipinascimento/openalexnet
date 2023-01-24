@@ -132,7 +132,7 @@ def createNetworks(workEntities, networkTypes=["citation", "coauthorship"], simp
 
     # add vertices and attributes
     if showProgress:
-        entitiesTQDM = tqdm(workEntities,desc="Extracting edges and attributes")
+        entitiesTQDM = tqdm(workEntities,desc="Extracting edges and attributes",leave=False)
     else:
         entitiesTQDM = workEntities
     
@@ -160,29 +160,6 @@ def createNetworks(workEntities, networkTypes=["citation", "coauthorship"], simp
             verticesAuthorData.append({"authorships":entity["authorships"]})
             verticesAuthorData[-1]["work_id"] = oaID
             verticesAuthorData[-1]["work_year"] = entity["publication_year"]
-            # authorships: [
-            #     // first authorship object:
-            #     {
-            #         author_position: "first",
-            #         author: {
-            #             id: "https://openalex.org/A1969205032",
-            #             display_name: "Heather A. Piwowar",
-            #             orcid: "https://orcid.org/0000-0003-1613-5981"
-            #         },
-            #         institutions: [
-            #             {
-            #                 id: "https://openalex.org/I4200000001",
-            #                 display_name: "OurResearch",
-            #                 ror: "https://ror.org/02nr0ka47",
-            #                 country_code: "US",
-            #                 type: "nonprofit"
-            #             }
-            #         ]
-            #     },
-                
-            #     // more authorship objects go here, omited for space.
-            # ]
-
             
         for k,v in attributes.items():
             if k not in verticesAttributes:
@@ -220,7 +197,7 @@ def createNetworks(workEntities, networkTypes=["citation", "coauthorship"], simp
         authorInstitutionsIDs = []
 
         if(showProgress):
-            authorsTQDM = tqdm(verticesAuthorData,desc="Generating coauthorship network")
+            authorsTQDM = tqdm(verticesAuthorData,desc="Generating coauthorship network",leave=False)
         else:
             authorsTQDM = verticesAuthorData
         
@@ -251,8 +228,8 @@ def createNetworks(workEntities, networkTypes=["citation", "coauthorship"], simp
                     authorAttributes["orcid"].append(orcidData)
                 authorIndex = authorID2Index[authorID]
                 if(authorEntry["institutions"]):
-                    authorInstitutionsIDs[authorIndex].update({openAlexID2Int(entry["id"]) for entry in authorEntry["institutions"] if entry["id"]})
-                    authorInstitutions[authorIndex].update({entry["display_name"] for entry in authorEntry["institutions"] if entry["display_name"]})
+                    authorInstitutionsIDs[authorIndex].update({openAlexID2Int(entry["id"]) for entry in authorEntry["institutions"] if "id" in entry and entry["id"]})
+                    authorInstitutions[authorIndex].update({entry["display_name"] for entry in authorEntry["institutions"] if "display_name"in entry and entry["display_name"]})
                 authorIndices.append(authorIndex)
             workID = authorEntries["work_id"]
             weight = 1.0/len(authorEntries)
@@ -282,7 +259,7 @@ def createNetworks(workEntities, networkTypes=["citation", "coauthorship"], simp
 
 
 
-def saveNetworkEdgesCSV(g:ig.Graph, edgelistPath, weight=None):
+def saveNetworkEdgesCSV(g:ig.Graph, edgelistPath):
     """
     Save a network to an edgelist file and CSV for the attributes.
 
@@ -305,11 +282,15 @@ def saveNetworkEdgesCSV(g:ig.Graph, edgelistPath, weight=None):
     nodeCSVPath = edgelistPath.with_name(edgelistPath.stem+"_nodes.csv")
     edgeCSVPath = edgelistPath.with_name(edgelistPath.stem+"_edges.csv")
     edgeList = g.get_edgelist() # list of tuples
-    if(weight):
-        edgeList = zip(*edgeList,g.es[weight])
+
+    if("weight" in g.es.attributes()):
+        weights = g.es["weight"]
+        edgeList = [(edge[0],edge[1],weights[edgeIndex]) for edgeIndex,edge in enumerate(edgeList)]
+    
     with open(edgelistPath,"wt") as f:
-        if(weight):
+        if("weight" in g.es.attributes()):
             for edge in edgeList:
+                # print(edge)
                 f.write("%d,%d,%f\n"%(edge))
         else:
             for edge in edgeList:
