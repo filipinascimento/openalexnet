@@ -1,3 +1,7 @@
+<a target="_blank" href="https://colab.research.google.com/github/filipinascimento/openalexnet">
+  <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/>
+</a>
+
 # OpenAlex Networks (openalexnet)
 OpenAlex Networks is a helper library and standalone command-line application to process and obtain data from the [OpenAlex](https://openalex.org) dataset via API. It also provides functionality to generate citation and coauthorship networks from queries.
 
@@ -135,6 +139,12 @@ Check `Examples` folder for more examples.
     - More examples
  - Unit tests
  - Group count
+
+## Google Colaboratory Demo/Tutorial
+You can access a Google Colab demo and tutorial by using the following link.
+<a target="_blank" href="https://colab.research.google.com/github/filipinascimento/openalexnet">
+  <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/>
+</a>
 
 ## [Thanks](#thanks)
 Remember to cite the OpenAlex work:
