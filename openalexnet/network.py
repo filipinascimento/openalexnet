@@ -211,6 +211,10 @@ def createNetworks(workEntities, networkTypes=["citation", "coauthorship"], simp
                 author = authorEntry["author"]
                 if(not author):
                     continue
+                if not author["id"]:
+                    import warnings
+                    warnings.warn(f"Author with data {author} has no ID. Ignoring.",stacklevel = 2)
+                    continue
                 authorID = openAlexID2Int(author["id"])
                 if(authorID not in authorID2Index):
                     authorID2Index[authorID] = len(index2AuthorID)
