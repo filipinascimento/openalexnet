@@ -8,7 +8,7 @@ with open("requirements.txt", "r") as fh:
 
 setuptools.setup(
     name="openalexnet",
-    version="0.1.1",
+    version="0.1.2",
     author="Filipi N. Silva",
     author_email="filipinascimento@gmail.com",
     description="Python library to load get networks from the OpenAlex API",
